@@ -140,7 +140,7 @@ void ProgressBar::paintSlider4(QPainter &painter)
         painter.drawEllipse(x0 - r0, y0 - r0, 2 * r0, 2 * r0);
     }
 }
-void ProgressBar::paintSlider5(QPainter &)
+void ProgressBar::paintSlider5(QPainter &painter)
 {
     PainterUser user(&painter);
     qreal a = 100;
@@ -150,22 +150,32 @@ void ProgressBar::paintSlider5(QPainter &)
 
 
 }
-void ProgressBar::paintSlider6(QPainter &)
+void ProgressBar::paintSlider6(QPainter &painter)
 {
     PainterUser user(&painter);
-    qreal a = 100;
-    qreal b = 300;
+    qreal a = 300;
+    qreal b = 400;
     qreal r = 80;
 
+    qreal currentangle = m_current * 16;
+    qreal sweepangle = 60 * 16;
+    painter.setPen(QColor(97, 117, 118));
+    painter.setBrush(QBrush(QColor(97, 117, 118)));
+    painter.drawEllipse(a - r, b - r, r * 2, r * 2);
+
+    painter.setPen(QColor(79, 194, 191));
+    painter.setBrush(QColor(79, 194, 191));
+    painter.drawPie(a - r, b - r, r * 2, r * 2, currentangle, sweepangle);
+
 }
-void ProgressBar::paintSlider7(QPainter &)
+void ProgressBar::paintSlider7(QPainter &painter)
 {
     PainterUser user(&painter);
     qreal a = 100;
     qreal b = 300;
     qreal r = 80;
 }
-void ProgressBar::paintSlider8(QPainter &)
+void ProgressBar::paintSlider8(QPainter &painter)
 {
     PainterUser user(&painter);
     qreal a = 100;

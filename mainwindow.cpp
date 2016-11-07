@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setPalette(palette);
     bar = new ProgressBar(this);
     bar->show();
-    startTimer(10);
+    startTimer(100);
 }
 
 MainWindow::~MainWindow()
