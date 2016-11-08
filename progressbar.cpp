@@ -66,19 +66,23 @@ void ProgressBar::paintEvent(QPaintEvent *event)
     paintSlider7(painter);
     paintSlider8(painter);
 
-
-
 }
 void ProgressBar::paintSlider(QPainter &painter)
 {
     PainterUser user(&painter);
-
+    //原点x坐标
     qreal a = 100;
+    //原点y坐标
     qreal b = 100;
+    //半径
     qreal r = 80;
-    qreal roffset = 1.0;
-    qreal angleOffset = 15;
+    //每个小圆的半径递增值
+    qreal roffset = 2;
+    //每个小圆的角度递增值
+    qreal angleOffset = 30;
+
     qreal currentangle = m_current ;
+
     for (int i = 0; i < colors.length(); i++) {
         qreal r0 = i * roffset;
         qreal angle = currentangle + i * angleOffset;
@@ -118,12 +122,75 @@ void ProgressBar::paintSlider2(QPainter &painter)
 }
 void ProgressBar::paintSlider3(QPainter &painter)
 {
+    PainterUser user(&painter);
+    //原点x坐标
+    qreal a = 500;
+    //原点y坐标
+    qreal b = 100;
+    //半径
+    qreal r = 80;
+
+    qreal r1 = r / 2;
+    qreal r2 = r / 6;
+    qreal currentangle = m_current;
+    //red 部分
+    {
+        painter.setBrush(QBrush(QColor(128, 1, 1)));
+
+        QPainterPath path(QPointF(a + r * cos(qDegreesToRadians( currentangle )), b - r * sin(qDegreesToRadians(currentangle ))));
+        path.arcTo(a - r, b - r,
+                   r * 2, r * 2,
+                   currentangle, 180);
+        path.arcTo(a + r1 * cos(qDegreesToRadians(currentangle + 180)) - r1, b - r1 * sin(qDegreesToRadians(currentangle + 180)) - r1,
+                   r1 * 2, r1 * 2,
+                   currentangle + 180, 180);
+        path.arcTo(a + r1*cos(qDegreesToRadians(currentangle)) - r1, b - r1 * sin(qDegreesToRadians(currentangle)) - r1,
+                   r1 * 2, r1 * 2,
+                   currentangle + 180, -180
+                   );
+
+        painter.drawPath(path);
+    }
+
+    //blue 部分
+    {
+        painter.setBrush(QBrush(QColor(1, 1, 128)));
+        QPainterPath path(QPointF(a + r * cos(qDegreesToRadians( currentangle )), b - r * sin(qDegreesToRadians(currentangle ))));
+        path.arcTo(a - r, b - r,
+                   r * 2, r * 2,
+                   currentangle, -180);
+        path.arcTo(a + r1 * cos(qDegreesToRadians(currentangle + 180)) - r1, b - r1 * sin(qDegreesToRadians(currentangle + 180)) - r1,
+                   r1 * 2, r1 * 2,
+                   currentangle + 180, 180);
+        path.arcTo(a + r1*cos(qDegreesToRadians(currentangle)) - r1, b - r1 * sin(qDegreesToRadians(currentangle)) - r1,
+                   r1 * 2, r1 * 2,
+                   currentangle + 180, -180
+                   );
+
+        painter.drawPath(path);
+    }
+    {
+        // red 小圆
+        painter.setBrush(QBrush(QColor(128, 1, 1)));
+        QPainterPath path;
+        path.addEllipse(a + r1 * cos(qDegreesToRadians(currentangle)) - r2, b - r1 * sin(qDegreesToRadians(currentangle )) - r2,
+                        r2 * 2, r2 * 2);
+        painter.drawPath(path);
+    }
+    {
+        //blue 小圆
+        painter.setBrush(QBrush(QColor(1, 1, 128)));
+        QPainterPath path;
+        path.addEllipse(a + r1 * cos(qDegreesToRadians(180 + currentangle)) - r2, b - r1 * sin(qDegreesToRadians(180 + currentangle)) - r2,
+                        r2 * 2, r2 * 2);
+        painter.drawPath(path);
+    }
 
 }
 void ProgressBar::paintSlider4(QPainter &painter)
 {
     PainterUser user(&painter);
-    qreal a = 700;
+    qreal a = 800;
     qreal b = 100;
     qreal r = 80;
 
@@ -144,10 +211,8 @@ void ProgressBar::paintSlider5(QPainter &painter)
 {
     PainterUser user(&painter);
     qreal a = 100;
-    qreal b = 300;
+    qreal b = 400;
     qreal r = 80;
-
-
 
 }
 void ProgressBar::paintSlider6(QPainter &painter)
