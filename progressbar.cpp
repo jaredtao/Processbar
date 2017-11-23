@@ -3,26 +3,7 @@
 #include <QtMath>
 #include <QDebug>
 #include <QPointer>
-class Ellipse{
-public:
-    Ellipse(qreal a, qreal b, qreal r)
-    {
-    }
-    void getXByY(qreal y, qreal & x1, qreal & x2)
-    {
-        qreal sq = sqrt(r * r - (y - b) * (y - b));
-        x1 =  sq + a;
-        x2 = -sq + a;
-    }
-    void getYByX(qreal x, qreal & y1, qreal & y2)
-    {
-        qreal sq = sqrt(r * r - (x - a) * (x - a));
-        y1 =  sq + b;
-        y2 = -sq + b;
-    }
-private:
-    qreal a, b, r;
-};
+
 class PainterUser {
 public:
     PainterUser(QPainter *painter):m_painter(painter) {

@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setPalette(palette);
     bar = new ProgressBar(this);
     bar->show();
-    startTimer(100);
+    startTimer(1000 / 60);
 }
 
 MainWindow::~MainWindow()
@@ -22,6 +22,7 @@ MainWindow::~MainWindow()
 }
 void MainWindow::timerEvent(QTimerEvent *)
 {
-    bar->setCurrent(bar->current() + 5);
+    int value = (int)(bar->current() + 3) % 360;
+    bar->setCurrent(value);
     bar->update();
 }
