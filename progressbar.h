@@ -5,8 +5,7 @@
 #include <QProgressBar>
 #include <QList>
 #include <QColor>
-class ProgressBar : public QProgressBar
-{
+class ProgressBar : public QProgressBar {
     Q_OBJECT
 public:
     ProgressBar(QWidget *parent = 0);
@@ -28,8 +27,8 @@ private:
     void paintSlider8(QPainter &);
 
 
-    QList<QColor> colors;
-    qreal m_current;
+    QList<QColor> mColorList;
+    qreal mCurrent;
 };
 
 #endif // PROCESSBAR_H

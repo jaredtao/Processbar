@@ -16,23 +16,21 @@ private:
     Q_DISABLE_COPY(PainterUser)
     QPainter* m_painter;
 };
-ProgressBar::ProgressBar(QWidget *parent) : QProgressBar(parent)
-{
-    m_current = 0;
+ProgressBar::ProgressBar(QWidget *parent) : QProgressBar(parent) {
+    mCurrent = 0;
     resize(parent->size());
-    colors << QColor(51, 52, 54)
-           << QColor(75, 85, 86)
-           << QColor(87, 103, 103)
-           << QColor(95, 119, 121)
-           << QColor(101, 132, 134)
-           << QColor(104, 146, 145)
-           << QColor(104, 158, 158)
-           << QColor(101, 169, 168)
-           << QColor(92, 182, 180)
-           << QColor(79, 194, 191);
+    mColorList << QColor(51, 52, 54)
+               << QColor(75, 85, 86)
+               << QColor(87, 103, 103)
+               << QColor(95, 119, 121)
+               << QColor(101, 132, 134)
+               << QColor(104, 146, 145)
+               << QColor(104, 158, 158)
+               << QColor(101, 169, 168)
+               << QColor(92, 182, 180)
+               << QColor(79, 194, 191);
 }
-void ProgressBar::paintEvent(QPaintEvent *event)
-{
+void ProgressBar::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event)
 
     QPainter painter(this);
@@ -48,8 +46,7 @@ void ProgressBar::paintEvent(QPaintEvent *event)
     paintSlider8(painter);
 
 }
-void ProgressBar::paintSlider(QPainter &painter)
-{
+void ProgressBar::paintSlider(QPainter &painter) {
     PainterUser user(&painter);
     //原点x坐标
     qreal a = 100;
@@ -62,27 +59,26 @@ void ProgressBar::paintSlider(QPainter &painter)
     //每个小圆的角度递增值
     qreal angleOffset = 30;
 
-    qreal currentangle = m_current ;
+    qreal currentangle = mCurrent ;
 
-    for (int i = 0; i < colors.length(); i++) {
+    for (int i = 0; i < mColorList.length(); i++) {
         qreal r0 = i * roffset;
         qreal angle = currentangle + i * angleOffset;
 
         qreal x0 = r * cos(qDegreesToRadians(angle)) + a;
         qreal y0 = r * sin(qDegreesToRadians(angle)) + b;
-        painter.setPen(colors[i]);
-        painter.setBrush(QBrush(colors[i]));
+        painter.setPen(mColorList[i]);
+        painter.setBrush(QBrush(mColorList[i]));
         painter.drawEllipse(x0  - r0, y0 - r0, 2 * r0, 2 * r0);
     }
 }
-void ProgressBar::paintSlider2(QPainter &painter)
-{
+void ProgressBar::paintSlider2(QPainter &painter) {
     PainterUser user(&painter);
     qreal a = 300;
     qreal b = 100;
     qreal r = 75;
 
-    qreal currentangle = m_current ;
+    qreal currentangle = mCurrent ;
     qreal sweepangle = 60 ;
     qreal inr  = r;
     qreal outr = r + 20;
@@ -101,8 +97,7 @@ void ProgressBar::paintSlider2(QPainter &painter)
 
     painter.drawPath(path);
 }
-void ProgressBar::paintSlider3(QPainter &painter)
-{
+void ProgressBar::paintSlider3(QPainter &painter) {
     PainterUser user(&painter);
     //原点x坐标
     qreal a = 500;
@@ -113,7 +108,7 @@ void ProgressBar::paintSlider3(QPainter &painter)
 
     qreal r1 = r / 2;
     qreal r2 = r / 6;
-    qreal currentangle = m_current;
+    qreal currentangle = mCurrent;
     //red 部分
     {
         painter.setBrush(QBrush(QColor(128, 1, 1)));
@@ -168,42 +163,31 @@ void ProgressBar::paintSlider3(QPainter &painter)
     }
 
 }
-void ProgressBar::paintSlider4(QPainter &painter)
-{
+void ProgressBar::paintSlider4(QPainter &painter) {
     PainterUser user(&painter);
     qreal a = 800;
     qreal b = 100;
     qreal r = 80;
 
-    qreal currentangle = m_current;
-    qreal angleOffset = 360 / colors.length();
+    qreal currentangle = mCurrent;
+    qreal angleOffset = 360 / mColorList.length();
     qreal r0 = 16;
-    for (int i = 0; i < colors.length(); i++) {
+    for (int i = 0; i < mColorList.length(); i++) {
         qreal angle = currentangle + i * angleOffset;
 
         qreal x0 = r * cos(qDegreesToRadians(angle)) + a;
         qreal y0 = r * sin(qDegreesToRadians(angle)) + b;
-        painter.setPen(colors[i]);
-        painter.setBrush(QBrush(colors[i]));
+        painter.setPen(mColorList[i]);
+        painter.setBrush(QBrush(mColorList[i]));
         painter.drawEllipse(x0 - r0, y0 - r0, 2 * r0, 2 * r0);
     }
 }
-void ProgressBar::paintSlider5(QPainter &painter)
-{
+void ProgressBar::paintSlider5(QPainter &painter) {
     PainterUser user(&painter);
     qreal a = 100;
     qreal b = 400;
     qreal r = 80;
-
-}
-void ProgressBar::paintSlider6(QPainter &painter)
-{
-    PainterUser user(&painter);
-    qreal a = 300;
-    qreal b = 400;
-    qreal r = 80;
-
-    qreal currentangle = m_current * 16;
+    qreal currentangle = mCurrent * 16;
     qreal sweepangle = 60 * 16;
     painter.setPen(QColor(97, 117, 118));
     painter.setBrush(QBrush(QColor(97, 117, 118)));
@@ -212,27 +196,29 @@ void ProgressBar::paintSlider6(QPainter &painter)
     painter.setPen(QColor(79, 194, 191));
     painter.setBrush(QColor(79, 194, 191));
     painter.drawPie(a - r, b - r, r * 2, r * 2, currentangle, sweepangle);
+}
+void ProgressBar::paintSlider6(QPainter &painter) {
+    PainterUser user(&painter);
+    //    qreal a = 300;
+    //    qreal b = 400;
+    //    qreal r = 80;
 
 }
-void ProgressBar::paintSlider7(QPainter &painter)
-{
+void ProgressBar::paintSlider7(QPainter &painter) {
     PainterUser user(&painter);
-    qreal a = 100;
-    qreal b = 300;
-    qreal r = 80;
+    //    qreal a = 100;
+    //    qreal b = 300;
+    //    qreal r = 80;
 }
-void ProgressBar::paintSlider8(QPainter &painter)
-{
+void ProgressBar::paintSlider8(QPainter &painter) {
     PainterUser user(&painter);
-    qreal a = 100;
-    qreal b = 300;
-    qreal r = 80;
+    //    qreal a = 100;
+    //    qreal b = 300;
+    //    qreal r = 80;
 }
-void ProgressBar::setCurrent(qreal v)
-{
-    m_current = v;
+void ProgressBar::setCurrent(qreal v) {
+    mCurrent = v;
 }
-qreal ProgressBar::current() const
-{
-    return m_current;
+qreal ProgressBar::current() const {
+    return mCurrent;
 }

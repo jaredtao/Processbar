@@ -3,22 +3,15 @@
 
 #include <QMainWindow>
 #include "progressbar.h"
-namespace Ui {
-class MainWindow;
-}
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
 protected:
     void timerEvent(QTimerEvent *) override;
 private:
-    Ui::MainWindow *ui;
-    ProgressBar *bar;
+    ProgressBar *mBar = nullptr;
 };
 
 #endif // MAINWINDOW_H

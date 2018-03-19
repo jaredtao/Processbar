@@ -19,4 +19,4 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     progressbar.h
 
-FORMS    += mainwindow.ui
+FORMS    +=
